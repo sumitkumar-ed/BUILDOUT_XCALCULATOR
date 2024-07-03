@@ -1,22 +1,32 @@
-import React, { useState } from "react";
-import Button from "../Button/Button";
-import "./Calculator.css";
+import React, { useState } from 'react';
+import Button from '../Button/Button';
+import './Calculator.css';
 
 const Calculator = () => {
-  const [input, setInput] = useState("");
-  const [result, setResult] = useState("");
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
 
   const handleButtonClick = (label) => {
-    if (label === "C") {
-      setInput("");
-      setResult("");
-    } else if (label === "=") {
-      try {
-        // Evaluate the expression
-        const evaluation = eval(input);
-        setResult(evaluation === Infinity ? "NaN" : evaluation);
-      } catch {
-        setResult("NaN");
+    if (label === 'C') {
+      setInput('');
+      setResult('');
+    } else if (label === '=') {
+      if (input === '') {
+        setResult('Error');
+      } else {
+        try {
+          // Evaluate the expression
+          const evaluation = eval(input);
+          if (evaluation === Infinity) {
+            setResult('Infinity');
+          } else if (isNaN(evaluation)) {
+            setResult('NaN');
+          } else {
+            setResult(evaluation);
+          }
+        } catch {
+          setResult('Error');
+        }
       }
     } else {
       setInput(input + label);
@@ -25,9 +35,8 @@ const Calculator = () => {
 
   return (
     <div className="calculator">
-      <h3>React Calculator</h3>
-
-      <div className="display">{result || input || "0"}</div>
+        <h3>React Calculator</h3>
+      <div className="display">{result || input || '0'}</div>
       <div className="button-row">
         <Button label="7" onClick={handleButtonClick} />
         <Button label="8" onClick={handleButtonClick} />
