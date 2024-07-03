@@ -35,8 +35,14 @@ const Calculator = () => {
 
   return (
     <div className="calculator">
-        <h3>React Calculator</h3>
-      <div className="display">{result || input || '0'}</div>
+      <h3>React Calculator</h3>
+      <input
+        type="text"
+        value={input}
+        className="input-field"
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <div className="result-display">{result}</div>
       <div className="button-row">
         <Button label="7" onClick={handleButtonClick} />
         <Button label="8" onClick={handleButtonClick} />
